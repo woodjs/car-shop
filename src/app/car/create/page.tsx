@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import { toast } from 'react-toastify';
 
 import { EnumEngineType, EnumTransmissionType } from '@/shared/enums';
 import {
@@ -82,23 +81,15 @@ export default function Page() {
       <Box>
         <form
           onSubmit={form.onSubmit(async (values) => {
-            try {
-              mutate({
-                ...values,
-                brandId: Number(values.brandId),
-                price: Number(values.price),
-                year: Number(values.year),
-                configurations: values.configurations.map((item) =>
-                  Number(item)
-                ),
-                range: values.range ? Number(values.range) : null,
-              });
-              form.reset();
-
-              toast.success('Машина успешно добавлена');
-            } catch {
-              toast.error('Не удалось добавить машину');
-            }
+            mutate({
+              ...values,
+              brandId: Number(values.brandId),
+              price: Number(values.price),
+              year: Number(values.year),
+              configurations: values.configurations.map((item) => Number(item)),
+              range: values.range ? Number(values.range) : null,
+            });
+            form.reset();
           })}
         >
           <Stack>

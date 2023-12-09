@@ -21,7 +21,6 @@ import {
 import { useForm } from '@mantine/form';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
 
 interface IFormValues {
   brandId: string | null;
@@ -29,7 +28,7 @@ interface IFormValues {
   model: string;
   price: string | number;
   year: string | number;
-  color?: string | null;
+  color?: string;
   engineType: string;
   transmissions?: string | null;
   range?: number | null;
@@ -56,7 +55,7 @@ export default function Page({ params }: { params: { id: string } }) {
       model: '',
       price: '',
       year: '',
-      color: null,
+      color: '',
       engineType: null || '',
       transmissions: null,
       range: null,
@@ -90,10 +89,10 @@ export default function Page({ params }: { params: { id: string } }) {
       model: data.model,
       price: data.price,
       year: data.year,
-      color: data.color,
+      color: data.color || '',
       engineType: data.engineType,
       transmissions: data.transmission,
-      range: String(data.range),
+      range: data.range || null,
       configurations: data.configurations.map((item) => String(item.id)),
     });
 
@@ -148,7 +147,6 @@ export default function Page({ params }: { params: { id: string } }) {
                 value: String(item.id),
               }))}
               {...form.getInputProps('brandId')}
-              onChange={console.log}
             />
             <TextInput label="Изображение" {...form.getInputProps('image')} />
             <TextInput label="Модель" {...form.getInputProps('model')} />
