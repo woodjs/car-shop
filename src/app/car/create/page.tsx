@@ -119,6 +119,10 @@ export default function Page() {
                   form.setFieldValue('transmissions', null);
                 }
 
+                if (EnumEngineType.ELECTRIC !== value) {
+                  form.setFieldValue('range', null);
+                }
+
                 form.getInputProps('engineType').onChange(value);
               }}
             />

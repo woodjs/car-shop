@@ -44,6 +44,6 @@ export class CarUpdateDto {
     this.color = data?.color;
     this.engineType = data.engineType;
     this.transmission = data?.transmission;
-    this.range = data?.range;
+    this.range = data?.range || null;
   }
 }

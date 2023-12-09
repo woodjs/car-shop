@@ -76,7 +76,7 @@ export class Car extends Model<ICarDetail, ICarCreateDB> {
 
   @BeforeValidate
   static validateRange(car: Car) {
-    if (car.engineType !== EnumEngineType.ELECTRIC && car.range) {
+    if (car.engineType !== EnumEngineType.ELECTRIC) {
       car.range = null;
     }
   }

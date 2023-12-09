@@ -31,7 +31,7 @@ interface IFormValues {
   color?: string;
   engineType: string;
   transmission?: string | null;
-  range?: number | null;
+  range?: number | string;
   configurations: string[];
 }
 
@@ -39,7 +39,7 @@ export default function Page({ params }: { params: { id: string } }) {
   const id = Number(params.id);
   const [oldData, setOldData] = useState({});
 
-  const { data, isLoading, isError } = useCarById(id);
+  const { data, refetch, isLoading, isError } = useCarById(id);
   const { mutate } = useCarUpdate();
 
   const {
@@ -58,7 +58,7 @@ export default function Page({ params }: { params: { id: string } }) {
       color: '',
       engineType: null || '',
       transmission: null,
-      range: null,
+      range: '',
       configurations: [],
     },
 
@@ -105,12 +105,10 @@ export default function Page({ params }: { params: { id: string } }) {
       color: data.color || '',
       engineType: data.engineType,
       transmission: data.transmission,
-      range: data.range || null,
+      range: data.range || '',
       configurations: data.configurations.map((item) => String(item.id)),
     });
   }, [data]);
-
-  console.log(form.values);
 
   if (isLoading || isLoadingFilters) return 'Loading';
   if (isError || isErrorFilters) return 'Error';
@@ -126,17 +124,22 @@ export default function Page({ params }: { params: { id: string } }) {
       <Box>
         <form
           onSubmit={form.onSubmit(async (values) => {
-            mutate({
-              ...values,
-              brandId: Number(values.brandId),
-              price: Number(values.price),
-              year: Number(values.year),
-              configurations: values.configurations.map((item: string) =>
-                Number(item)
-              ),
-              id,
-            });
-            setOldData(form.values);
+            mutate(
+              {
+                ...values,
+                brandId: Number(values.brandId),
+                price: Number(values.price),
+                year: Number(values.year),
+                range: Number(values.range),
+                configurations: values.configurations.map((item: string) =>
+                  Number(item)
+                ),
+                id,
+              },
+              {
+                onSettled: () => refetch(),
+              }
+            );
           })}
         >
           <Stack>
@@ -163,6 +166,10 @@ export default function Page({ params }: { params: { id: string } }) {
               onChange={(value) => {
                 if (EnumEngineType.PETROL !== value) {
                   form.setFieldValue('transmission', null);
+                }
+
+                if (EnumEngineType.ELECTRIC !== value) {
+                  form.setFieldValue('range', '');
                 }
 
                 form.getInputProps('engineType').onChange(value);
