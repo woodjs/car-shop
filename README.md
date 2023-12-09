@@ -19,7 +19,7 @@ git clone https://github.com/woodjs/car-shop.git
 npm i
 ```
 Шаг 3
-- Создайте таблицу в MySQL и импортируйте дамп БД в /uploads/car-shop.sql
+- Создайте таблицу в MySQL и импортируйте дамп БД из /uploads/car-shop.sql
 
 Шаг 4
 - Создайте файлы .env.development.local для dev mode и .env.production.local для production mode, затем заполните переменные
