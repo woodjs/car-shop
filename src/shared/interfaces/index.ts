@@ -6,7 +6,7 @@ export interface ICarCreateDB {
   price: number;
   year: number;
   engineType: string;
-  transmissions?: string | null;
+  transmission?: string | null;
   range?: number | null;
 }
 
@@ -48,7 +48,7 @@ export interface ICarConfiguration {
 
 export interface ICarDetail extends ICarBase {
   engineType: string;
-  transmission?: string;
+  transmission?: string | null;
   range?: number | null;
   configurations: IConfiguration[];
 }

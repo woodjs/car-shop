@@ -53,8 +53,8 @@ export const CarService = {
 
   async updateById(payload: ICarUpdate) {
     const candidate = await this.findById(payload.id);
-    console.log(payload);
     const dto = new CarUpdateDto(payload);
+
     await candidate.update(dto);
 
     const curConfigurations = await models.CarConfiguration.findAll({
@@ -215,7 +215,6 @@ export const CarService = {
       }
     }
 
-    // const result = await models.Car.findAndCountAll(params);
     const result = await models.Car.findAndCountAll(params);
 
     return result;

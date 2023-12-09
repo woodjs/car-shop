@@ -30,7 +30,7 @@ interface IFormValues {
   year: string | number;
   color?: string;
   engineType: string;
-  transmissions?: string | null;
+  transmission?: string | null;
   range?: number | null;
   configurations: string[];
 }
@@ -57,7 +57,7 @@ export default function Page({ params }: { params: { id: string } }) {
       year: '',
       color: '',
       engineType: null || '',
-      transmissions: null,
+      transmission: null,
       range: null,
       configurations: [],
     },
@@ -73,7 +73,7 @@ export default function Page({ params }: { params: { id: string } }) {
       },
       color: (value) => (!value || !value.length ? 'Заполните поле' : null),
       engineType: (value) => (!value ? 'Заполните поле' : null),
-      transmissions: (value, values) => {
+      transmission: (value, values) => {
         if (values.engineType === EnumEngineType.PETROL && !value)
           return 'Заполните поле';
       },
@@ -91,7 +91,7 @@ export default function Page({ params }: { params: { id: string } }) {
       year: data.year,
       color: data.color || '',
       engineType: data.engineType,
-      transmissions: data.transmission,
+      transmission: data.transmission,
       range: data.range || null,
       configurations: data.configurations.map((item) => String(item.id)),
     });
@@ -104,7 +104,7 @@ export default function Page({ params }: { params: { id: string } }) {
       year: data.year,
       color: data.color || '',
       engineType: data.engineType,
-      transmissions: data.transmission,
+      transmission: data.transmission,
       range: data.range || null,
       configurations: data.configurations.map((item) => String(item.id)),
     });
@@ -162,7 +162,7 @@ export default function Page({ params }: { params: { id: string } }) {
               {...form.getInputProps('engineType')}
               onChange={(value) => {
                 if (EnumEngineType.PETROL !== value) {
-                  form.setFieldValue('transmissions', null);
+                  form.setFieldValue('transmission', null);
                 }
 
                 form.getInputProps('engineType').onChange(value);
@@ -182,8 +182,8 @@ export default function Page({ params }: { params: { id: string } }) {
               disabled={
                 EnumEngineType.PETROL !== form.getInputProps('engineType').value
               }
-              {...form.getInputProps('transmissions')}
-              value={form.values.transmissions}
+              {...form.getInputProps('transmission')}
+              value={form.values.transmission}
             />
 
             <MultiSelect

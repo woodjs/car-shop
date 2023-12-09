@@ -19,7 +19,7 @@ export class CarCreateDto {
     this.year = data.year;
     this.color = data?.color;
     this.engineType = data.engineType;
-    this.transmissions = data?.transmissions;
+    this.transmissions = data?.transmission;
     this.range = data?.range;
   }
 }
@@ -32,7 +32,7 @@ export class CarUpdateDto {
   year?: number;
   color?: string | null;
   engineType?: string;
-  transmissions?: string | null;
+  transmission?: string | null;
   range?: number | null;
 
   constructor(data: ICarCreateDB) {
@@ -43,15 +43,7 @@ export class CarUpdateDto {
     this.year = data.year;
     this.color = data?.color;
     this.engineType = data.engineType;
-    this.transmissions = data?.transmissions;
+    this.transmission = data?.transmission;
     this.range = data?.range;
   }
 }
-
-// export class CarUpdateDto extends CarCreateDto {
-//   id: number;
-//   constructor(payload: ICarUpdate) {
-//     super(payload);
-//     this.id = payload.id;
-//   }
-// }
